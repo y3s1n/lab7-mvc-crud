@@ -1,9 +1,12 @@
-export function seralizeMessage(message) {
-    return JSON.stringify(message);
+const KEY = 'chat.messages.v1';
+
+export function loadMessages() {
+  const stored = localStorage.getItem(KEY);
+  return stored ? JSON.parse(stored) : [];
 }
 
-const KEY = 'sheet1';
-
-export function saveMessage(jsonMessage) {
-    localStorage.setItem(KEY, jsonMessage);
+export function saveMessage(msg) {
+  const messageArr = loadMessages();
+  messageArr.push(msg);                     
+  localStorage.setItem(KEY, JSON.stringify(messageArr));
 }
