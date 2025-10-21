@@ -1,4 +1,4 @@
-import { chatView } from "./view.js";
+import "./view.js";
 import * as model from "./model.js";
 
 const view = document.querySelector('chat-view');
@@ -6,4 +6,5 @@ const view = document.querySelector('chat-view');
 view.addEventListener('messageSent', (e) => {
     const userMessage = e.detail;
     model.saveMessage(userMessage);
-});
+    view.addToChatWindow(userMessage);  
+}); 
