@@ -25,13 +25,13 @@ export class chatView extends HTMLElement {
 
 
      send() {
-        const text = {
+        const userText = {
             id: 'user',
             message: this.textarea.value,
             date: new Date()
         };
 
-        this.dispatchEvent(new CustomEvent('messageSent', {detail: text}));
+        this.dispatchEvent(new CustomEvent('messageSent', {detail: userText}));
 
         this.textarea.value = '';
         this.textarea.focus();
