@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Component using PE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div class="content-box">
+            <header>
+                <h1>Chat Assistant</h1>
+                <p>Approach 2: chat using a custom element that enhances existing HTML with javaScript</p>
+
+            </header>
+
+            
+            <chat-view>
+            <div class="chatBox">
+                    <div class="bot">
+                        <div class="message">Hello! How can I help you?</div>
+                    </div>
+            </div>
+
+
+
+                <form id="chatForm">
+                    <textarea name="textbox" id="messageBox" placeholder="Type a message..."></textarea>
+                    <button id="sendBtn" type="button">Send</button>
+                </form>
+            </chat-view>
+
+            <script type="module" src="js/controller.js"></script>
+
+            
+              <noscript>
+                <div id="notification">
+                    <p> ℹ️ Please enable JavaScript to use chat-box</p>
+                </div>
+            </noscript>
+        </div>
+    </div>
+
+
+</body>
+</html>
