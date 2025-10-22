@@ -8,21 +8,50 @@ export class chatView extends HTMLElement {
         this.textarea = this.querySelector('#messageBox');
         this.sendBtn = this.querySelector('#sendBtn');
         this.chatBox = this.querySelector('.chatBox');
+        this.toggleBtn = this.querySelector('#toggleBtn');
+        this.createBtn = this.querySelector('#createBtn');
         // this.clearBtn = this.querySelector('#clearBtn');
 
+   
+        this.attachListeners();
 
-        // this.onClear = () => this.clearChat();
-        this.onSend = ()  => this.sendMessage();
-        this.onEnter = (e) => {
-            if(e.key === 'Enter' && !e.shiftKey){
-                e.preventDefault();
-                this.sendMessage();
-            }
-        };
+    }
 
-        // this.clearBtn.addEventListener('click', this.onClear);
+    attachListeners() {
         this.sendBtn.addEventListener('click', this.onSend);
         this.textarea.addEventListener('keydown', this.onEnter);
+        this.toggleBtn.addEventListener('click', this.onToggle);
+        this.createBtn.addEventListener('click', this.onCreate);
+        // this.clearBtn.addEventListener('click', this.onClear);
+    }
+
+
+
+    // Handlers
+
+    //onClear = () => this.clearChat();
+    onCreate = () => this.CreateChat();
+    onSend = ()  => this.sendMessage();
+    onEnter = (e) => {
+        if(e.key === 'Enter' && !e.shiftKey){
+            e.preventDefault();
+            this.sendMessage();
+        }
+    };
+    onToggle = () => {
+        this.closest('.box').classList.toggle('is-open');
+    }
+
+
+    
+
+    //CRUD Methods
+
+    CreateChat() {
+        window.prompt("Name this chat:");
+        if (name === null || name === "") return;
+        const chatName = name.trim();
+        this.dispatchEvent(new CustomEvent('createChat', {name: chatName}));
 
     }
 
@@ -33,6 +62,8 @@ export class chatView extends HTMLElement {
         this.dispatchEvent(new CustomEvent('clearChat'));   
         this.chatBox.innerHTML = '';
     }
+
+// Functions
 
      sendMessage() {
         const userText = {

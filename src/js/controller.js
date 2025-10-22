@@ -20,9 +20,12 @@ view.addEventListener('messageSent', (e) => {
     view.addToChatWindow(botText);
 }); 
 
+view.addEventListener('createChat', (e) => {    
+    const chatName = e.detail.name;
+    model.createChat(chatName);
+
+});
+
 // view.addEventListener('clearChat', () => {
-
-
 //     model.clearMessages();
-    
 // });
