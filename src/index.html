@@ -3,47 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Component using PE</title>
+    <title>MVC & CRUD</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../reset.css">
 </head>
 <body>
     
-    <div id="wrapper">
-        <div class="content-box">
-            <chat-view>
+    <div class="wrapper">
+        <div class="box"> 
+            <simple-chat>
                 <header>
                     <h1>Chat Assistant</h1>
                     <p>Approach 2: chat using a custom element that enhances existing HTML with javaScript</p>
-
-                    <button id="clearBtn" type="button" confirm>Clear</button>
+                    <button id="toggleBtn">☰</button>
                 </header>
 
-                
-                
-                <div class="chatBox">
-                        <div class="bot">
-                            <div class="message">Hello! How can I help you?</div>
-                        </div>
-                </div>
+                <aside id="sideBar">
+                    <header>
+                        <button id="create">Create</button>
+                        <button id="load">Import</button>
+                    </header>
+                    <main>
+                        <p>new chats go here</p>
+                    </main>
+                    
+                    
+                </aside>
 
-
-
-                    <form id="chatForm">
-                        <textarea name="textbox" id="messageBox" placeholder="Type a message..."></textarea>
-                        <button id="sendBtn" type="button">Send</button>
-                    </form>
-            </chat-view>
-
-            <script type="module" src="js/controller.js"></script>
+                    <main>  
+                        <div class="chatBox">
+                            
+                                <div class="message bot">Hello! How can I help you? How can I help you? I am great how are you</div>
+            
+                                <div class="message user">Hello! How can I help you? </div>
 
             
-              <noscript>
-                <div id="notification">
-                    <p> ℹ️ Please enable JavaScript to use chat-box</p>
-                </div>
-            </noscript>
+                        </div>
+                    </main>
+                    <footer>
+                        <form id="chatForm">
+                            <textarea id="messageBox" placeholder="Type a message..." ></textarea>
+                            <button id="sendBtn" type="button" >Send</button>
+                        </form>
+                    </footer>
+                </simple-chat>
         </div>
-    </div>
+       </div>
+
+    <script>
+        document.getElementById('toggleBtn').addEventListener('click', () => {
+            document.querySelector('.box').classList.toggle('is-open');
+        });
+    </script>
 
 
 </body>
