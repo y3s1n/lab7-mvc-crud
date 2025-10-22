@@ -10,3 +10,7 @@ export function saveMessage(msg) {
   messageArr.push(msg);                     
   localStorage.setItem(KEY, JSON.stringify(messageArr));
 }
+
+export function clearMessages() {
+  localStorage.removeItem(KEY);
+}

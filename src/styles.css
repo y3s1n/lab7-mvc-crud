@@ -136,6 +136,33 @@ form button:hover {
 
 }
 
+
+/* Newsht */
+
+#clearBtn {
+    border-radius: 30px;
+    height: 55px;
+    width: 100px;
+    min-width: 60px;
+    color: var(--primary-color);
+    background-color: red;
+    border: 1px solid var(--border-color);
+    font-weight: 550;
+    font-size: large; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 150ms ease;
+    margin-right: 10px;
+    transition: 150ms ease;
+}
+
+
+
+
+
+
+/* End Newsht */
 #notification {
     border-top: 1px solid rgba(255, 191, 0, 0.654);
     background-color: rgba(255, 231, 16, 0.366);

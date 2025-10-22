@@ -1,0 +1,1 @@
+Store text object in array raw, and then stringify the array itself so that program doesnt have to stringify and parse each message

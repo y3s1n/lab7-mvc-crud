@@ -6,25 +6,35 @@ export class chatView extends HTMLElement {
     connectedCallback() {
         this.form = this.querySelector('#chatForm');
         this.textarea = this.querySelector('#messageBox');
-        this.button = this.querySelector('#sendBtn');
+        this.sendBtn = this.querySelector('#sendBtn');
         this.chatBox = this.querySelector('.chatBox');
+        this.clearBtn = this.querySelector('#clearBtn');
 
 
-        this.onClick = ()  => this.send();
+        this.onClear = () => this.clearChat();
+        this.onSend = ()  => this.sendMessage();
         this.onEnter = (e) => {
             if(e.key === 'Enter' && !e.shiftKey){
                 e.preventDefault();
-                this.send();
+                this.sendMessage();
             }
         };
 
-        this.button.addEventListener('click', this.onClick);
+        this.clearBtn.addEventListener('click', this.onClear);
+        this.sendBtn.addEventListener('click', this.onSend);
         this.textarea.addEventListener('keydown', this.onEnter);
 
     }
 
+    clearChat() {
+       if (!(window.confirm("Are you sure you want to clear the chat?"))) return;
 
-     send() {
+
+        this.dispatchEvent(new CustomEvent('clearChat'));   
+        this.chatBox.innerHTML = '';
+    }
+
+     sendMessage() {
         const userText = {
             id: 'user',
             message: this.textarea.value,
