@@ -20,9 +20,9 @@ view.addEventListener('messageSent', (e) => {
     view.addToChatWindow(botText);
 }); 
 
-view.addEventListener('clearChat', () => {
+// view.addEventListener('clearChat', () => {
 
 
-    model.clearMessages();
+//     model.clearMessages();
     
-});
+// });

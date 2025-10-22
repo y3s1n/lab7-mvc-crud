@@ -39,14 +39,14 @@ html {
 
 }
 
-simple-chat {
+chat-view {
     height: 100%;
     display: grid;
     grid-template-columns: minmax(0, var(--sidebar, 0)) 3fr;
     grid-template-rows: 1fr 3fr 1fr;
 }
 
-simple-chat > header {
+chat-view > header {
     text-align: center;
     grid-column: 1 / -1;
     grid-row: 1;
@@ -61,17 +61,17 @@ simple-chat > header {
     border-bottom: 1px solid var(--border-color);
 }
 
-simple-chat > header > h1 {
+chat-view > header > h1 {
     font-size: 2em;
     font-weight: bold; 
 }
 
-simple-chat > header > p {
+chat-view > header > p {
     font-size: 1em;
     font-weight: normal;
 }
 
-simple-chat > header > button {
+chat-view > header > button {
   position: absolute; 
   bottom: 0rem;      
   left: 0rem;   
@@ -109,7 +109,7 @@ simple-chat > header > button {
 
 /** main chat styles */
 
-simple-chat > main {
+chat-view > main {
     grid-column: 2;
     grid-row: 2;
     padding: 20px;
@@ -118,7 +118,7 @@ simple-chat > main {
     border-bottom: 1px solid var(--border-color);
 }
 
-simple-chat > footer {
+chat-view > footer {
     grid-column: 2;
     grid-row: 3;
     display: flex;
@@ -130,7 +130,7 @@ simple-chat > footer {
 
 }
 
-simple-chat > footer > #chatForm {
+chat-view > footer > #chatForm {
    display: contents;
     width: 100%;
     

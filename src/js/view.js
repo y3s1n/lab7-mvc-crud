@@ -8,10 +8,10 @@ export class chatView extends HTMLElement {
         this.textarea = this.querySelector('#messageBox');
         this.sendBtn = this.querySelector('#sendBtn');
         this.chatBox = this.querySelector('.chatBox');
-        this.clearBtn = this.querySelector('#clearBtn');
+        // this.clearBtn = this.querySelector('#clearBtn');
 
 
-        this.onClear = () => this.clearChat();
+        // this.onClear = () => this.clearChat();
         this.onSend = ()  => this.sendMessage();
         this.onEnter = (e) => {
             if(e.key === 'Enter' && !e.shiftKey){
@@ -20,7 +20,7 @@ export class chatView extends HTMLElement {
             }
         };
 
-        this.clearBtn.addEventListener('click', this.onClear);
+        // this.clearBtn.addEventListener('click', this.onClear);
         this.sendBtn.addEventListener('click', this.onSend);
         this.textarea.addEventListener('keydown', this.onEnter);
 
@@ -51,15 +51,10 @@ export class chatView extends HTMLElement {
 
      addToChatWindow(text) {
     
-        const theSpeaker = document.createElement('div');
-        theSpeaker.className = text.id;
-
-        const theMessage = document.createElement('p');
-        theMessage.className = 'message';
+        const theMessage = document.createElement('div');
+        theMessage.className = `message ${text.id}`;
         theMessage.textContent = text.message;
-
-        theSpeaker.appendChild(theMessage);
-        this.chatBox.appendChild(theSpeaker);
+        this.chatBox.appendChild(theMessage);
 
         this.chatBox.scrollTop = this.chatBox.scrollHeight;
 
