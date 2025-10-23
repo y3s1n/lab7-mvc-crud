@@ -20,27 +20,9 @@ view.addEventListener('messageSent', (e) => {
     view.addToChatWindow(botText);
 }); 
 
-function loadCurrentChat() {
-    const messages = model.loadMessages();
-    messages.forEach(msg => view.addToChatWindow(msg));
-}
 
-view.addEventListener('createChat', (e) => {    
-    const chatName = e.detail.name;
-    try {
-        model.createChat(chatName);
-        model.setCurrentChat(chatName);
-        loadCurrentChat();
-    } catch (err) {
-        window.alert(err.message);
-    }
-});
 
-const currentChat = model.getCurrentChat();
-if (currentChat) {
-    loadCurrentChat();
-}
+view.addEventListener('clearChat', () => {
+    model.clearMessages();
+})
 
-// view.addEventListener('clearChat', () => {
-//     model.clearMessages();
-// });

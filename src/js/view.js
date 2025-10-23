@@ -10,6 +10,7 @@ export class chatView extends HTMLElement {
         this.chatBox = this.querySelector('.chatBox');
         this.toggleBtn = this.querySelector('#toggleBtn');
         this.createBtn = this.querySelector('#createBtn');
+        this.chatList = this.querySelector('#chatList');
         // this.clearBtn = this.querySelector('#clearBtn');
 
    
@@ -22,6 +23,7 @@ export class chatView extends HTMLElement {
         this.textarea.addEventListener('keydown', this.onEnter);
         this.toggleBtn.addEventListener('click', this.onToggle);
         this.createBtn.addEventListener('click', this.onCreate);
+        this.chatList.addEventListener('click', this.onChatListClick);
         // this.clearBtn.addEventListener('click', this.onClear);
     }
 
@@ -41,6 +43,24 @@ export class chatView extends HTMLElement {
     onToggle = () => {
         this.closest('.box').classList.toggle('is-open');
     }
+    onChatListClick = (e) => {
+        const clear = e.target.closest('.clearChat');
+        const deleteChat = e.target.closest('.deleteChat');
+        const open = e.target.closest('.chatItem');
+        if (!clear && !deleteChat && !oepn) return;
+
+        const name = e.target.closest('li').querySelector('.chatItem').dataset.name;
+        if (!name) return;
+
+        if (open) {
+            this.dispatchEvent(new CustomEvent('openChat', {detail: {name}}));
+        } else if (clear) {
+            this.dispatchEvent(new CustomEvent('clearChat', {detail: {name}}));
+        } else if (deleteChat) {
+            this.dispatchEvent(new CustomEvent('deleteChat', {detail: {name}}));
+        }
+
+    };
 
 
     
@@ -48,7 +68,7 @@ export class chatView extends HTMLElement {
     //CRUD Methods
 
     CreateChat() {
-        window.prompt("Name this chat:");
+        const name = window.prompt("Name this chat:");
         if (name === null || name === "") return;
         const chatName = name.trim();
         this.dispatchEvent(new CustomEvent('createChat', {name: chatName}));
@@ -89,6 +109,36 @@ export class chatView extends HTMLElement {
 
         this.chatBox.scrollTop = this.chatBox.scrollHeight;
 
+    }
+
+    addToChatList(name, current = false) {
+        if (!this.chatList) return;
+        
+        const li = document.createElement('li');
+        const openBtn = document.createElement('button');
+        openBtn.type = 'button';
+        openBtn.className = 'chatItem';
+        openBtn.dataset.name = name;
+        openBtn.textContent = name;
+        if (current) openBtn.setAttribute('aria-current', 'true');
+        li.appendChild(openBtn);
+
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.type = 'button';
+        deleteBtn.className = 'deleteChat';
+        deleteBtn.textContent = '×';
+        deleteBtn.title = `Delete chat"`;
+        li.appendChild(deleteBtn);
+
+        const clearBtn = document.createElement('button');
+        clearBtn.type = 'button';
+        clearBtn.className = 'clearChat';
+        clearBtn.textContent = '🗑️';
+        clearBtn.title = `Clear chat"`;
+        li.appendChild(clearBtn);
+
+        this.chatList.appendChild(li);
     }
 
 }
