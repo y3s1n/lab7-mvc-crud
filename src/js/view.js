@@ -9,9 +9,7 @@ export class chatView extends HTMLElement {
         this.sendBtn = this.querySelector('#sendBtn');
         this.chatBox = this.querySelector('.chatBox');
         this.toggleBtn = this.querySelector('#toggleBtn');
-        this.createBtn = this.querySelector('#createBtn');
-        this.chatList = this.querySelector('#chatList');
-        // this.clearBtn = this.querySelector('#clearBtn');
+        this.clearBtn = this.querySelector('.clearBtn');
 
    
         this.attachListeners();
@@ -22,16 +20,14 @@ export class chatView extends HTMLElement {
         this.sendBtn.addEventListener('click', this.onSend);
         this.textarea.addEventListener('keydown', this.onEnter);
         this.toggleBtn.addEventListener('click', this.onToggle);
-        this.createBtn.addEventListener('click', this.onCreate);
-        this.chatList.addEventListener('click', this.onChatListClick);
-        // this.clearBtn.addEventListener('click', this.onClear);
+        this.clearBtn.addEventListener('click', this.onClear);
     }
 
 
 
     // Handlers
 
-    //onClear = () => this.clearChat();
+    onClear = () => this.clearChat();
     onCreate = () => this.CreateChat();
     onSend = ()  => this.sendMessage();
     onEnter = (e) => {
@@ -100,45 +96,32 @@ export class chatView extends HTMLElement {
         
     }
 
+    formatDate(dateLike) {
+        const d = new Date(dateLike);
+        return d.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+    }
+
      addToChatWindow(text) {
     
         const theMessage = document.createElement('div');
         theMessage.className = `message ${text.id}`;
         theMessage.textContent = text.message;
+        
+
+        const time = document.createElement('time');
+        time.className = `timestamp ${text.id}`;
+
+        const d = new Date(text.date);
+        time.dateTime = d.toISOString();
+        time.textContent = this.formatDate(d);
+
+        
         this.chatBox.appendChild(theMessage);
+        this.chatBox.appendChild(time);
+
 
         this.chatBox.scrollTop = this.chatBox.scrollHeight;
 
-    }
-
-    addToChatList(name, current = false) {
-        if (!this.chatList) return;
-        
-        const li = document.createElement('li');
-        const openBtn = document.createElement('button');
-        openBtn.type = 'button';
-        openBtn.className = 'chatItem';
-        openBtn.dataset.name = name;
-        openBtn.textContent = name;
-        if (current) openBtn.setAttribute('aria-current', 'true');
-        li.appendChild(openBtn);
-
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.type = 'button';
-        deleteBtn.className = 'deleteChat';
-        deleteBtn.textContent = '×';
-        deleteBtn.title = `Delete chat"`;
-        li.appendChild(deleteBtn);
-
-        const clearBtn = document.createElement('button');
-        clearBtn.type = 'button';
-        clearBtn.className = 'clearChat';
-        clearBtn.textContent = '🗑️';
-        clearBtn.title = `Clear chat"`;
-        li.appendChild(clearBtn);
-
-        this.chatList.appendChild(li);
     }
 
 }

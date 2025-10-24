@@ -15,7 +15,7 @@
             <chat-view>
                 <header>
                     <h1>Chat Assistant</h1>
-                    <p>Approach 2: chat using a custom element that enhances existing HTML with javaScript</p>
+                    <p>MVC</p>
                     <button id="toggleBtn">☰</button>
                 </header>
 
@@ -24,8 +24,13 @@
                         <button id="createBtn">Create</button>
                         <button id="load">Import</button>
                     </header>
-                    <main>
-                        <p>new chats go here</p>
+                    <main id="chatList">
+                        <div id="chat.1">
+                            chat 1
+                            <button class="exportBtn">export</button>
+                            <button class="clearBtn">clear</button>
+                        </div>
+                        
                     </main>
                     
                     
@@ -36,7 +41,7 @@
                             
                                 <div class="message bot">Hello! How can I help you? How can I help you? I am great how are you</div>
             
-                                <!-- <div class="message user">Hello! How can I help you? </div> -->
+                                <div class="message user">Hello! How can I help you?</div>
 
             
                         </div>

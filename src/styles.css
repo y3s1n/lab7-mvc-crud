@@ -32,10 +32,12 @@ html {
 
 .box {
     box-sizing: border-box;
-    border: 5px solid black;
     height: clamp(400px, 80%, 90vh); 
     width: clamp(360px, 80vmin, 90vw);
     background: white;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 0 1.25em 0.5em #de0daa33;
 
 }
 
@@ -87,11 +89,12 @@ chat-view > header > button {
     grid-column: 1;
     width: var(--sidebar, 0);
     overflow: hidden;
-    border-right: 1px solid var(--border-color);
+    border: 1px solid var(--border-color);
+    border-left: none;
 }
 
 .box.is-open {
-    --sidebar: 10rem
+    --sidebar: 11rem
 }
 
 #sideBar > header {
@@ -101,10 +104,17 @@ chat-view > header > button {
     font-size: 1.2em;
 }
 
-#sideBar > main {
+#chatList {
+   display: flex;
+   flex-direction: column;
    overflow-y: auto;
 }
 
+#chatList > div {
+    box-sizing: border-box;
+    border: 1px solid var(--border-color);
+    padding: 5px;
+}
 
 
 /** main chat styles */
@@ -131,7 +141,7 @@ chat-view > footer {
 }
 
 chat-view > footer > #chatForm {
-   display: contents;
+    display: contents;
     width: 100%;
     
 }
@@ -143,12 +153,12 @@ chat-view > footer > #chatForm {
     box-sizing: border-box;
     line-height: 1.2;
     width: 70%;
-    max-height: 40%;
+    max-height: 35%;
     
     resize: none;
     border-radius: 20px;
-    padding-top: 7px;
-    padding-bottom: 2px;
+    padding-top: 5px;
+    
     padding-left: 10px; 
 
 }
@@ -157,6 +167,10 @@ chat-view > footer > #chatForm {
 #messageBox:focus {
     outline: none;
     border-color: rgb(138, 137, 137) ;
+}
+
+#messageBox::-webkit-scrollbar{
+    display: none;
 }
 
 #sendBtn {
@@ -170,7 +184,7 @@ chat-view > footer > #chatForm {
 }
 
 #sendBtn:hover {
-    background-color: rgb(77, 107, 242);
+    filter: brightness(0.95);
 }
 
 
@@ -201,32 +215,22 @@ chat-view > footer > #chatForm {
 }
 .message.user {
     align-self: flex-end;
-    background-color: rgb(134, 193, 250);
+    background-color: var(--accent-color);
+    color: var(--primary-color);
     border-radius: 15px 15px 0px 15px;
     margin-bottom: 10px;
     margin-left: 15px;
 }
 
+.timestamp.user {
+    align-self: flex-end;
+    border: 2px solid red;
 
-/* Newsht */
-
-#clearBtn {
-    border-radius: 30px;
-    height: 55px;
-    width: 100px;
-    min-width: 60px;
-    color: var(--primary-color);
-    background-color: red;
-    border: 1px solid var(--border-color);
-    font-weight: 550;
-    font-size: large; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: 150ms ease;
-    margin-right: 10px;
-    transition: 150ms ease;
 }
 
+.timestamp.bot {
+    align-self: flex-start;
+    border: 2px solid green;
 
-/* End Newsht */
+}
+
