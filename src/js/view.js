@@ -39,37 +39,10 @@ export class chatView extends HTMLElement {
     onToggle = () => {
         this.closest('.box').classList.toggle('is-open');
     }
-    onChatListClick = (e) => {
-        const clear = e.target.closest('.clearChat');
-        const deleteChat = e.target.closest('.deleteChat');
-        const open = e.target.closest('.chatItem');
-        if (!clear && !deleteChat && !oepn) return;
 
-        const name = e.target.closest('li').querySelector('.chatItem').dataset.name;
-        if (!name) return;
-
-        if (open) {
-            this.dispatchEvent(new CustomEvent('openChat', {detail: {name}}));
-        } else if (clear) {
-            this.dispatchEvent(new CustomEvent('clearChat', {detail: {name}}));
-        } else if (deleteChat) {
-            this.dispatchEvent(new CustomEvent('deleteChat', {detail: {name}}));
-        }
-
-    };
-
-
-    
 
     //CRUD Methods
 
-    CreateChat() {
-        const name = window.prompt("Name this chat:");
-        if (name === null || name === "") return;
-        const chatName = name.trim();
-        this.dispatchEvent(new CustomEvent('createChat', {name: chatName}));
-
-    }
 
     clearChat() {
        if (!(window.confirm("Are you sure you want to clear the chat?"))) return;
