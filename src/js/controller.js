@@ -7,7 +7,7 @@ const view = document.querySelector('chat-view');
 view.addEventListener('messageSent', (e) => {
     const userMessage = e.detail;
     model.saveMessage(userMessage);
-    view.addToChatWindow(userMessage);  
+    view.addUserMsg(userMessage);  
 
 
     const botText = {
@@ -17,7 +17,7 @@ view.addEventListener('messageSent', (e) => {
     };
 
     model.saveMessage(botText);
-    view.addToChatWindow(botText);
+    view.addBotMsg(botText);
 }); 
 
 

@@ -52,7 +52,7 @@ export class chatView extends HTMLElement {
         this.chatBox.innerHTML = '';
     }
 
-// Functions
+    // Functions
 
      sendMessage() {
         const userText = {
@@ -74,8 +74,57 @@ export class chatView extends HTMLElement {
         return d.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
     }
 
-     addToChatWindow(text) {
+     addUserMsg(text) {
     
+
+        const userMsg = document.createElement('div');
+        userMsg.className = 'userMsg';
+
+     
+        const theMessage = document.createElement('div');
+        theMessage.className = `message ${text.id}`; // "user" expected here
+        theMessage.textContent = text.message;
+
+        const meta = document.createElement('div');
+        meta.className = 'metaData';
+
+     
+        const time = document.createElement('time');
+        time.className = `timestamp ${text.id}`;
+        const d = new Date(text.date);
+        time.dateTime = d.toISOString();
+        time.textContent = this.formatDate(d); 
+
+  
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+     
+        const editBtn = document.createElement('button');
+        editBtn.className = 'editBtn';
+        editBtn.textContent = 'edit';
+
+       
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'deleteBtn';
+        deleteBtn.textContent = '🗑️';
+
+        actions.appendChild(editBtn);
+        actions.appendChild(deleteBtn);
+
+        meta.appendChild(time);
+        meta.appendChild(actions);
+
+        userMsg.appendChild(theMessage);
+        userMsg.appendChild(meta);
+
+        this.chatBox.appendChild(userMsg);
+        this.chatBox.scrollTop = this.chatBox.scrollHeight;
+
+    }
+
+    addBotMsg(text) {
+        
         const theMessage = document.createElement('div');
         theMessage.className = `message ${text.id}`;
         theMessage.textContent = text.message;
@@ -94,7 +143,6 @@ export class chatView extends HTMLElement {
 
 
         this.chatBox.scrollTop = this.chatBox.scrollHeight;
-
     }
 
 }
