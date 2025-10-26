@@ -233,10 +233,14 @@ chat-view > footer > #chatForm {
 }
 
 .timestamp.user {
-    align-self: flex-end;
+    position: static;
+    font-size: small;
+    line-height: 1;
+
+    /* align-self: flex-end;
     position: relative;
     bottom: 0.8rem;
-    font-size: small;
+    font-size: small; */
 
 }
 
@@ -254,19 +258,38 @@ chat-view > footer > #chatForm {
     flex-direction: column;
 }
 
-.buttons {
+.metaData {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: flex-end;
     gap: 5px;
+
 }
 
-.buttons > button {
-    font-size: x-small;
-    background: transparent;
-    border: 1px solid var(--border-color)
+.metaData .actions {
+    display: flex;
+    gap: 6px;
+
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-width 200ms ease, opacity 200ms ease;
 }
 
-.msgInfo button:hover {
+.metaData:hover .actions {
+    max-width: 140px;
+    opacity: 1;
+}
+
+.actions > button {
+   font-size: small;
+   background: transparent;
+   border:1px solid var(--border-color);
+   padding: 0.15rem 0.35rem;
+   border-radius: 4px;
+}
+
+.actions > button:hover {
     filter: brightness(0.7);
 }
 
