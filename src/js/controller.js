@@ -20,7 +20,17 @@ view.addEventListener('messageSent', (e) => {
     view.addBotMsg(botText);
 }); 
 
+view.addEventListener('requestEdit', (e) => {
+    const {key, currentText } = e.detail;
+    const next = window.prompt('Edit your message:', currentText);
+    if(next === null) return;
+    const trimmed = next.trim();
+    if (trimmed === '' || trimmed === currentText) return;
 
+    const ok = model.updateMessage(key, trimmed);
+    if (ok) view.updateMsgByKey(key, trimmed, true);
+
+})
 
 view.addEventListener('deleteMessage', (e) => {
     const {key} = e.detail;

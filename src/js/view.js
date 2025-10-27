@@ -22,7 +22,9 @@ export class chatView extends HTMLElement {
         this.textarea.addEventListener('keydown', this.onEnter);
         this.toggleBtn.addEventListener('click', this.onToggle);
         this.clearBtn.addEventListener('click', this.onClear);
-       this.chatBox.addEventListener('click', this.onChatDelete);
+        this.chatBox.addEventListener('click', this.onChatDelete);
+        this.chatBox.addEventListener('click', this.onChatEdit);
+
     }
 
 
@@ -31,6 +33,7 @@ export class chatView extends HTMLElement {
 
     onClear = () => this.clearChat();
     onChatDelete = (e) => this.deleteMsg(e);
+    onChatEdit = (e) => this.editMsg(e);
     onCreate = () => this.CreateChat();
     onSend = ()  => this.sendMessage();
     onEnter = (e) => {
@@ -47,12 +50,24 @@ export class chatView extends HTMLElement {
     //CRUD Methods
 
 
+    editMsg(e) {
+        const btn = e.target.closest('.editBtn');
+        if (!btn) return;
+
+        const block = btn.closest('.userMsg');
+        if (!block) return;
+
+        const key = block.dataset.key;
+        const currentText = block.querySelector('.message.user').textContent;
+
+        this.dispatchEvent(new CustomEvent('requestEdit', {detail: {key, currentText}}));
+    }
     deleteMsg(e) {
-        if (!(window.confirm("Are you sure you want to delete this message?"))) return;
-
-
+       
         const del = e.target.closest('.deleteBtn');
         if (!del) return;
+
+         if (!(window.confirm("Are you sure you want to delete this message?"))) return;
 
         const block = del.closest('.userMsg');
         if (!block) return;
@@ -168,6 +183,33 @@ export class chatView extends HTMLElement {
     removeMsgByKey(key) {
         const block = this.chatBox.querySelector(`.userMsg [datetime="${key}"]`).closest('.userMsg');
         if (block) block.remove();
+    }
+
+    updateMsgByKey(key, newText, edited=false) {
+        const block = this.chatBox.querySelector(`.userMsg[data-key="${key}"]`);
+        if (!block) return;
+
+        const msgEl = block.querySelector('.message.user');
+        if (msgEl) msgEl.textContent = newText;
+
+        if (edited) {
+            const meta = block.querySelector('.metaData');
+            if (!meta) return;
+        
+            let editedTag = meta.querySelector('.editedTag');
+            if (!editedTag) {
+                editedTag = document.createElement('span');
+                editedTag.className = 'editedTag';
+                editedTag.textContent = ' (edited)';
+                const timeEl = meta.querySelector('time');
+                if (timeEl && timeEl.nextSibling) {
+                    meta.insertBefore(editedTag, timeEl.nextSibling);
+                } else {
+                    meta.appendChild(editedTag);
+                }
+            }
+        }
+    
     }
 }
 

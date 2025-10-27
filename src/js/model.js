@@ -21,3 +21,16 @@ export function deleteMessage(key) {
   const next = arr.filter(msg => msg.date !== key);
   localStorage.setItem(KEY, JSON.stringify(next));
 }
+
+export function updateMessage(key, newText) {
+  const arr = loadMessages();
+  const i = arr.findIndex(msg => msg.date === key);
+  if (i === -1) return false;
+
+  arr[i].message = newText;
+  arr[i].edited = true;
+  arr[i].editedAt = new Date().toISOString();
+
+  localStorage.setItem(KEY, JSON.stringify(arr));
+  return true;
+}
