@@ -15,3 +15,9 @@ export function saveMessage(msg) {
 export function clearMessages() {
   localStorage.removeItem(KEY);
 }
+
+export function deleteMessage(key) {
+  const arr = loadMessages();
+  const next = arr.filter(msg => msg.date !== key);
+  localStorage.setItem(KEY, JSON.stringify(next));
+}

@@ -22,6 +22,12 @@ view.addEventListener('messageSent', (e) => {
 
 
 
+view.addEventListener('deleteMessage', (e) => {
+    const {key} = e.detail;
+    model.deleteMessage(key);
+    view.removeMsgByKey(key);
+})
+
 view.addEventListener('clearChat', () => {
     model.clearMessages();
 })

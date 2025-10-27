@@ -10,6 +10,7 @@ export class chatView extends HTMLElement {
         this.chatBox = this.querySelector('.chatBox');
         this.toggleBtn = this.querySelector('#toggleBtn');
         this.clearBtn = this.querySelector('.clearBtn');
+        
 
    
         this.attachListeners();
@@ -21,6 +22,7 @@ export class chatView extends HTMLElement {
         this.textarea.addEventListener('keydown', this.onEnter);
         this.toggleBtn.addEventListener('click', this.onToggle);
         this.clearBtn.addEventListener('click', this.onClear);
+       this.chatBox.addEventListener('click', this.onChatDelete);
     }
 
 
@@ -28,6 +30,7 @@ export class chatView extends HTMLElement {
     // Handlers
 
     onClear = () => this.clearChat();
+    onChatDelete = (e) => this.deleteMsg(e);
     onCreate = () => this.CreateChat();
     onSend = ()  => this.sendMessage();
     onEnter = (e) => {
@@ -44,6 +47,20 @@ export class chatView extends HTMLElement {
     //CRUD Methods
 
 
+    deleteMsg(e) {
+        if (!(window.confirm("Are you sure you want to delete this message?"))) return;
+
+
+        const del = e.target.closest('.deleteBtn');
+        if (!del) return;
+
+        const block = del.closest('.userMsg');
+        if (!block) return;
+
+        const key = block.dataset.key;
+        this.dispatchEvent(new CustomEvent('deleteMessage', {detail: {key}}));
+
+    }
     clearChat() {
        if (!(window.confirm("Are you sure you want to clear the chat?"))) return;
 
@@ -77,12 +94,13 @@ export class chatView extends HTMLElement {
      addUserMsg(text) {
     
 
+        
         const userMsg = document.createElement('div');
         userMsg.className = 'userMsg';
 
      
         const theMessage = document.createElement('div');
-        theMessage.className = `message ${text.id}`; // "user" expected here
+        theMessage.className = `message ${text.id}`; 
         theMessage.textContent = text.message;
 
         const meta = document.createElement('div');
@@ -92,7 +110,9 @@ export class chatView extends HTMLElement {
         const time = document.createElement('time');
         time.className = `timestamp ${text.id}`;
         const d = new Date(text.date);
-        time.dateTime = d.toISOString();
+        const key = d.toISOString();
+        userMsg.dataset.key = key;
+        time.dateTime = key;
         time.textContent = this.formatDate(d); 
 
   
@@ -145,6 +165,10 @@ export class chatView extends HTMLElement {
         this.chatBox.scrollTop = this.chatBox.scrollHeight;
     }
 
+    removeMsgByKey(key) {
+        const block = this.chatBox.querySelector(`.userMsg [datetime="${key}"]`).closest('.userMsg');
+        if (block) block.remove();
+    }
 }
 
 customElements.define('chat-view', chatView);
