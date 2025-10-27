@@ -42,3 +42,9 @@ view.addEventListener('clearChat', () => {
     model.clearMessages();
 })
 
+view.addEventListener('exportChat', () => {
+    const data = model.loadMessages();
+    const filename = `chat-export-${new Date().toISOString().slice(0,19)}.json`;
+    model.downloadJSON(filename, data);
+})
+

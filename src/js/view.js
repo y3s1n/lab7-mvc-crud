@@ -10,6 +10,7 @@ export class chatView extends HTMLElement {
         this.chatBox = this.querySelector('.chatBox');
         this.toggleBtn = this.querySelector('#toggleBtn');
         this.clearBtn = this.querySelector('.clearBtn');
+        this.sideBar = this.querySelector('#sideBar');
         
 
    
@@ -24,13 +25,14 @@ export class chatView extends HTMLElement {
         this.clearBtn.addEventListener('click', this.onClear);
         this.chatBox.addEventListener('click', this.onChatDelete);
         this.chatBox.addEventListener('click', this.onChatEdit);
+        this.sideBar.addEventListener('click', this.onExport);
 
     }
 
 
 
     // Handlers
-
+    onExport = (e) => this.exportChat(e);
     onClear = () => this.clearChat();
     onChatDelete = (e) => this.deleteMsg(e);
     onChatEdit = (e) => this.editMsg(e);
@@ -48,6 +50,13 @@ export class chatView extends HTMLElement {
 
 
     //CRUD Methods
+
+    exportChat(e) {
+        const btn = e.target.closest('.exportBtn');
+        if (!btn) return;
+
+        this.dispatchEvent(new CustomEvent('exportChat'));
+    }
 
 
     editMsg(e) {
