@@ -47,3 +47,9 @@ export function downloadJSON(filename, data) {
   a.remove();
   URL.revokeObjectURL(url);
 }
+
+export function importMessages(arr) {
+  if (!Array.isArray(arr)) return 0;
+  localStorage.setItem(KEY, JSON.stringify(arr));
+  return arr.length;
+}

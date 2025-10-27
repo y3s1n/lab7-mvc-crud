@@ -30,21 +30,39 @@ view.addEventListener('requestEdit', (e) => {
     const ok = model.updateMessage(key, trimmed);
     if (ok) view.updateMsgByKey(key, trimmed, true);
 
-})
+});
 
 view.addEventListener('deleteMessage', (e) => {
     const {key} = e.detail;
     model.deleteMessage(key);
     view.removeMsgByKey(key);
-})
+});
 
 view.addEventListener('clearChat', () => {
     model.clearMessages();
-})
+});
 
 view.addEventListener('exportChat', () => {
     const data = model.loadMessages();
     const filename = `chat-export-${new Date().toISOString().slice(0,19)}.json`;
     model.downloadJSON(filename, data);
-})
+});
+
+view.addEventListener('importChat', (e) => {
+    const payload = e.detail.data;
+
+    const arr = Array.isArray(payload) ? payload : Array.isArray(payload.messages) ? payload.messages : null;
+    if (!arr) {
+        alert('Unsupported import format.');
+        return;
+    }
+
+    const count = model.importMessages(arr);
+    view.chatBox.innerHTML = '';
+    arr.forEach(msg => {
+        if (msg.id === 'user') view.addUserMsg(msg);
+        else if (msg.id === 'bot') view.addBotMsg(msg);
+    });
+    alert(`Imported ${count} messages.`)
+});
 

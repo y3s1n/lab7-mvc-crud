@@ -26,12 +26,14 @@ export class chatView extends HTMLElement {
         this.chatBox.addEventListener('click', this.onChatDelete);
         this.chatBox.addEventListener('click', this.onChatEdit);
         this.sideBar.addEventListener('click', this.onExport);
+        this.sideBar.addEventListener('click', this.onImport);
 
     }
 
 
 
     // Handlers
+    onImport = (e) => this.importChat(e);
     onExport = (e) => this.exportChat(e);
     onClear = () => this.clearChat();
     onChatDelete = (e) => this.deleteMsg(e);
@@ -50,6 +52,33 @@ export class chatView extends HTMLElement {
 
 
     //CRUD Methods
+
+    importChat(e) {
+        const btn = e.target.closest('.importBtn');
+        if (!btn) return;
+
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/json';
+
+        input.onchange = (ev) => {
+            const file = ev.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const data = JSON.parse(reader.result);
+                    this.dispatchEvent(new CustomEvent('importChat', { detail: {data}}));
+                } catch (err) {
+                    alert('Invalid JSON file.');
+                }
+            };
+            reader.readAsText(file);
+        };
+
+        input.click();
+    }
 
     exportChat(e) {
         const btn = e.target.closest('.exportBtn');
