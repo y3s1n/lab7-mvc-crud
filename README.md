@@ -146,7 +146,4 @@ Website is published on cloudfare click [here](https://lab7-mvc-crud-9fb.pages.d
 
 ---
 
-## License / attribution
 
-- Educational lab code — adapt as needed for exercises.
-- No external dependencies included; standard browser APIs used.
