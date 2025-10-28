@@ -138,6 +138,9 @@ Design rationale and alternatives are documented in ADR files under `adr/`.
   - adr002-chatController-adr.md
   - adr/003-chatModel-adr.md
 
+- Cloudfare website:
+Website is published on cloudfare click [here](https://lab7-mvc-crud-9fb.pages.dev/) to view website.
+
 - Known runtime note:
   - Ensure the app is served (or the script runs after DOM is parsed). If `document.querySelector('chat-view')` is null on startup, the controller cannot attach listeners — serve `src/` or include the module after the body.
 
